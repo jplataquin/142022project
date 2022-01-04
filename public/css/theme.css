@@ -1,0 +1,115 @@
+body{
+    background-color: #ffcad2;
+}
+
+.dpink{
+    background-color: #ffb7c1;
+}
+
+.white{
+    color: #ffffff !important;
+}
+
+.border-10px{
+    border: solid 10px !important;
+}
+
+.border-5px{
+    border: solid 5px !important;
+}
+
+.hotpink{
+    color: #f23a8e !important;
+}
+
+.hotpink-bg{
+    background-color: #f23a8e !important;
+}
+
+.nicepink-bg{
+    background-color: #fa4b77 !important;
+}
+
+.reg-bg{
+    background-color: #f775b0 !important;
+}
+
+.pro-bg{
+    background-color: #6dd1e9 !important;
+}
+
+.sub-bg{
+    background-color: #f8b864 !important;
+}
+
+.res-bg{
+    background-color: #b39df0 !important;
+}
+
+.cit-bg{
+    background-color: #4ddcba !important;
+}
+
+.dis-bg{
+    background-color: #f86c6b !important;
+}
+
+.ceo-bg{
+    background-color: #ffca22 !important;
+    color: #ef3d8f !important;
+}
+
+.pic{
+    width:300px;
+    height:300px;
+}
+
+.rank{
+    width:50%;
+    margin-left:90px;
+    padding-left: 30px;
+}
+
+.name{
+    border-bottom-right-radius: 25px;
+    min-height:50px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.label-icon{
+    width:40px;
+    border-top-left-radius: 25px;
+    padding:10px;
+    position:absolute;
+}
+
+.field{
+    background-color: #ffffff;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    padding:10px;
+    padding-left:50px;
+    width:100%;
+    color: #f23a8e !important;
+}
+
+.field-row{
+    margin-bottom:10px;
+}
+
+
+
+@media only screen and (max-width: 810px) {
+    
+    .rank{
+        width:100%;
+        margin-left:auto;
+    }
+
+    .pic{
+        width:200px;
+        height:200px;
+    }
+    
+}
