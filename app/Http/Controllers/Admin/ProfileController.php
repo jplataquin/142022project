@@ -94,13 +94,13 @@ class ProfileController extends Controller
         $profile->province          = $request->input('province');
         $profile->city_municipality = $request->input('city_municipality');
         $profile->barangay          = $request->input('barangay');
-        $profile->prefix            = $request->input('prefix');
-        $profile->firstname         = $request->input('firstname');
-        $profile->middlename        = $request->input('middlename');
-        $profile->lastname          = $request->input('lastname');
-        $profile->suffix            = $request->input('suffix');
-        $profile->email             = $request->input('email');
-        $profile->mobile            = $request->input('mobile');
+        $profile->prefix            = $request->input('prefix') ?? '';
+        $profile->firstname         = $request->input('firstname') ?? '';
+        $profile->middlename        = $request->input('middlename') ?? '';
+        $profile->lastname          = $request->input('lastname') ?? '';
+        $profile->suffix            = $request->input('suffix') ?? '';
+        $profile->email             = $request->input('email') ?? '';
+        $profile->mobile            = $request->input('mobile') ?? '';
         $profile->links             = $request->input('links');
         $profile->photo             = $photo;
         
@@ -160,7 +160,7 @@ class ProfileController extends Controller
         $profile->city_municipality = $city_municipality->citymunDesc ?? '';
         $profile->barangay          = $barangay->brgyDesc ?? '';
 
-        return view('public/profile/display',$profile);
+        return view('admin/profile/preview',$profile);
     }
 
     public function update($id){

@@ -1,6 +1,57 @@
 @extends('layouts.public')
 
 @section('content')
+
+<style>
+    @font-face {
+        font-family: gotham;
+        src: url(/GothamBold.ttf);
+    }
+
+    @font-face {
+        font-family: usnr;
+        src: url(/usnr.ttf);
+    }
+
+    @media (min-width:320px)  { 
+
+        #crown{
+            width:150px;
+            display: block;
+            margin: auto;
+            position: relative;
+            top:25px;
+        }
+    }
+
+    @media (min-width:600px)  { 
+        .usnr{
+            font-family: usnr;
+            font-size: 30px;
+        }
+
+        .gotham{
+            font-family: gotham;
+        }
+
+        .field{
+            font-family: gotham;
+        }
+
+        .name-div{
+            width:80%;
+            margin:auto;
+        }
+
+        #crown{
+            width:150px;
+            display: block;
+            margin: auto;
+            position: relative;
+            top:25px;
+        }
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -14,15 +65,18 @@
 
                             <div class="col-md-12">
                                 <div class="text-center">
+                                    <img id="crown" src="{{url('/crown.png')}}"/>
                                     <img  class="rounded-circle border-10px hotpink pic"  src="{{asset('photos/'.$photo)}}" width="100%"/>
                                 </div>
                                 
-                                <div>
-                                    <img class="float-left rounded-circle border-5px hotpink"  width="100px" height="100px"  src="{{asset('img/logo.png')}}" width="100%"/>
-                                    <div class="nicepink-bg white name">{{$prefix}} {{$firstname}} {{$middlename}} {{$lastname}} {{$suffix}}</div>
+                                <div class="">
+                                    <div class="name-div">
+                                        <img class="float-left rounded-circle border-5px hotpink"  width="100px" height="100px"  src="{{asset('img/logo.png')}}" width="100%"/>
+                                        <div class="nicepink-bg white name usnr">{{$prefix}} {{$firstname}} {{$middlename}} {{$lastname}} {{$suffix}}</div>
+                                    </div>
                                 </div>
                                
-                                <div class="{{$rank}}-bg white rounded-right rank">{{config('app.rank')[$rank]}}</div>
+                                <div class="{{$rank}}-bg white rounded-right rank gotham">{{config('app.rank')[$rank]}}</div>
                             </div>
                         </div>
                         <br>

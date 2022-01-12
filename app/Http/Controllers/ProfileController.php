@@ -97,8 +97,8 @@ class ProfileController extends Controller
             $profile = $profile->where('barangay',$brgyCode);
         }
 
-        $skip   = $page * 2;
-        $result = $profile->skip($skip)->take(2)->get();
+        $skip   = $page * 6;
+        $result = $profile->skip($skip)->take(6)->get();
 
 
         $data = [];
