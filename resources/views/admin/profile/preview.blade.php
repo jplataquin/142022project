@@ -168,7 +168,12 @@
     <script>
         
     html2canvas(document.querySelector(".card")).then(canvas => {
-        document.location.href = canvas.toDataURL();
+      
+        let iframe = "<iframe style='border:0px' width='100%' height='100%' src='" + canvas.toDataURL() + "'></iframe>"
+        //var x = window.open();
+        //x.document.open();
+        document.write(iframe);
+        //x.document.close();
        
     });
 
