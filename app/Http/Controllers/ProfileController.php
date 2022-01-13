@@ -70,7 +70,7 @@ class ProfileController extends Controller
         $profile = new Profile();
        
         if($name){
-            $profile = $profile->where(DB::raw('CONCAT(IFNULL(prefix,""),"",IFNULL(firstname,""," ",IFNULL(middlename,"")," ",IFNULL(lastname,"")," ",IFNULL(suffix,""))') , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->where(DB::raw('CONCAT(prefix," ",firstname," ",middlename," ",lastname," ",suffix)') , 'LIKE' , '%'.$name.'%');
         }
 
         if($uid){
@@ -107,6 +107,10 @@ class ProfileController extends Controller
         
         foreach($result as $item){
 
+            $item->prefix               = $item->prefix ?? '';
+            $item->firstname            = $item->firstname ?? '';
+            $item->middlename           = $item->middlename ?? '';
+            $item->suffix               = $item->suffix ?? '';
             $item->region               = Region::where('regCode',$item->region)->first()->regDesc ?? '';
             $item->province             = Province::where('provCode',$item->province)->first()->provDesc ?? '';
             $item->city_municipality    = CityMunicipality::where('citymunCode',$item->city_municipality)->first()->citymunDesc ?? '';
