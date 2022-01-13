@@ -114,6 +114,7 @@ class ProfileController extends Controller
             $item->prefix               = $item->prefix ?? '';
             $item->firstname            = $item->firstname ?? '';
             $item->middlename           = $item->middlename ?? '';
+            $item->lastname             = $item->lastname ?? '';
             $item->suffix               = $item->suffix ?? '';
             $item->region               = Region::where('regCode',$item->region)->first()->regDesc ?? '';
             $item->province             = Province::where('provCode',$item->province)->first()->provDesc ?? '';

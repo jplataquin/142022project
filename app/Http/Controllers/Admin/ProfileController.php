@@ -95,13 +95,13 @@ class ProfileController extends Controller
         $profile->city_municipality = $request->input('city_municipality');
         $profile->barangay          = $request->input('barangay');
         $profile->prefix            = $request->input('prefix') ?? '';
-        $profile->firstname         = $request->input('firstname') ?? '';
+        $profile->firstname         = $request->input('firstname');
         $profile->middlename        = $request->input('middlename') ?? '';
-        $profile->lastname          = $request->input('lastname') ?? '';
+        $profile->lastname          = $request->input('lastname');
         $profile->suffix            = $request->input('suffix') ?? '';
         $profile->email             = $request->input('email') ?? '';
         $profile->mobile            = $request->input('mobile') ?? '';
-        $profile->links             = $request->input('links');
+        $profile->links             = $request->input('links') ?? '';
         $profile->photo             = $photo;
         
         $test = $profile->save();
@@ -227,15 +227,14 @@ class ProfileController extends Controller
         $profile->province          = $request->input('province');
         $profile->city_municipality = $request->input('city_municipality');
         $profile->barangay          = $request->input('barangay');
-        $profile->prefix        = $request->input('prefix');
-        $profile->firstname     = $request->input('firstname');
-        $profile->middlename    = $request->input('middlename');
-        $profile->lastname      = $request->input('lastname');
-        $profile->suffix        = $request->input('suffix');
-        $profile->email         = $request->input('email');
-        $profile->mobile        = $request->input('mobile');
-  
-        $profile->links         = $request->input('links');
+        $profile->prefix            = $request->input('prefix') ?? '';
+        $profile->firstname         = $request->input('firstname');
+        $profile->middlename        = $request->input('middlename') ?? '';
+        $profile->lastname          = $request->input('lastname');
+        $profile->suffix            = $request->input('suffix') ?? '';
+        $profile->email             = $request->input('email') ?? '';
+        $profile->mobile            = $request->input('mobile') ?? '';
+        $profile->links             = $request->input('links') ?? '';
         
         Storage::disk('local')->delete('photos/'.$profile->photo);
         
@@ -283,7 +282,11 @@ class ProfileController extends Controller
         $profile = new Profile();
        
         if($name){
-            $profile = $profile->where(DB::raw('CONCAT(prefix," ",firstname," ",middlename," ",lastname," ",suffix)') , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('prefix' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('firstname' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('middlename' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('lastname' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('suffix' , 'LIKE' , '%'.$name.'%');
         }
 
         if($uid){
@@ -320,6 +323,11 @@ class ProfileController extends Controller
         
         foreach($result as $item){
 
+            $item->prefix               = $item->prefix ?? '';
+            $item->firstname            = $item->firstname ?? '';
+            $item->middlename           = $item->middlename ?? '';
+            $item->lastname             = $item->lastname ?? '';
+            $item->suffix               = $item->suffix ?? '';
             $item->region               = Region::where('regCode',$item->region)->first()->regDesc ?? '';
             $item->province             = Province::where('provCode',$item->province)->first()->provDesc ?? '';
             $item->city_municipality    = CityMunicipality::where('citymunCode',$item->city_municipality)->first()->citymunDesc ?? '';
