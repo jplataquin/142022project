@@ -131,6 +131,10 @@ class ProfileController extends Controller
 
         $profile = Profile::find($id);;
         
+        if(!$profile){
+            return abort(404);
+        }
+
         $region             = Region::where('regCode',$profile->region)->first() ?? '';
         $province           = Province::where('provCode',$profile->province)->first() ?? '';
         $city_municipality  = CityMunicipality::where('citymunCode',$profile->city_municipality)->first() ?? '';
@@ -150,6 +154,10 @@ class ProfileController extends Controller
 
         $profile = Profile::find($id);;
         
+        if(!$profile){
+            return abort(404);
+        }
+
         $region             = Region::where('regCode',$profile->region)->first() ?? '';
         $province           = Province::where('provCode',$profile->province)->first() ?? '';
         $city_municipality  = CityMunicipality::where('citymunCode',$profile->city_municipality)->first() ?? '';
@@ -166,6 +174,10 @@ class ProfileController extends Controller
     public function update($id){
 
         $profile = Profile::findOrFail($id);;
+        
+        if(!$profile){
+            return abort(404);
+        }
         
         $profile->rankOptions = config('app.rank');
         

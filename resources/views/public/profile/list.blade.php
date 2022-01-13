@@ -70,6 +70,11 @@
     </div>
 </div>
 
+<style>
+    .card{
+        cursor: pointer;
+    }
+</style>
 <script type="module">
 
     import {Template} from '/adarna.js';

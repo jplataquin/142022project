@@ -28,6 +28,9 @@ class ProfileController extends Controller
 
         $profile = Profile::find($id);;
         
+        if(!$profile){
+            return abort(404);
+        }
 
         $region             = Region::where('regCode',$profile->region)->first() ?? '';
         $province           = Province::where('provCode',$profile->province)->first() ?? '';
@@ -38,6 +41,22 @@ class ProfileController extends Controller
         $profile->province          = $province->provDesc ?? '';
         $profile->city_municipality = $city_municipality->citymunDesc ?? '';
         $profile->barangay          = $barangay->brgyDesc ?? '';
+
+        $search = [$profile->region];
+     
+        if($profile->provice){
+            $search[] = $profile->provice;  
+        };
+
+        if($profile->city_municipality){
+            $search[] = $profile->city_municipality;  
+        };
+
+        if($profile->barangay){
+            $search[] = $profile->barangay;  
+        };
+
+        $profile->search = implode(',',$search);
 
         $profile->rankOptions = config('app.rank');
         

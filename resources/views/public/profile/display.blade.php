@@ -87,7 +87,7 @@
                                     <i class="bi bi-geo-alt-fill"></i>
                             </div>
                             <div class="field">
-                               {{join(', ',[$region,$province,$city_municipality,$barangay])}}
+                               <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{urlencode('Philippines,'.$search)}}">{{join(', ',[$region,$province,$city_municipality,$barangay])}}</a>
                             </div>
                         </div>
                         <div class="col-lg-6 field-row">
