@@ -70,7 +70,7 @@ class ProfileController extends Controller
         $profile = new Profile();
        
         if($name){
-            $profile = $profile->where(DB::raw('CONCAT(prefix," ",firstname," ",middlename," ",lastname," ",suffix)') , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->where(DB::raw('CONCAT(IFNULL(prefix,""),"",IFNULL(firstname,""," ",IFNULL(middlename,"")," ",IFNULL(lastname,"")," ",IFNULL(suffix,""))') , 'LIKE' , '%'.$name.'%');
         }
 
         if($uid){
