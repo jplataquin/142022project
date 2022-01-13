@@ -70,11 +70,11 @@ class ProfileController extends Controller
         $profile = new Profile();
        
         if($name){
-            $profile = $profile->where('prefix' , 'LIKE' , '%'.$name.'%');
-            $profile = $profile->where('firstname' , 'LIKE' , '%'.$name.'%');
-            $profile = $profile->where('middlename' , 'LIKE' , '%'.$name.'%');
-            $profile = $profile->where('lastname' , 'LIKE' , '%'.$name.'%');
-            $profile = $profile->where('suffix' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWhere('prefix' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWwhere('firstname' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWwhere('middlename' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWwhere('lastname' , 'LIKE' , '%'.$name.'%');
+            $profile = $profile->orWwhere('suffix' , 'LIKE' , '%'.$name.'%');
         }
 
         if($uid){
