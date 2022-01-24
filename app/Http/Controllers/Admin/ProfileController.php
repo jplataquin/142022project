@@ -208,7 +208,7 @@ class ProfileController extends Controller
             'email'             => 'required|email|max:255',
             'mobile'            => 'required|max:255',
             'links'             => 'max:255',
-            'photo'             => 'required|image|mimes:jpg|dimensions:min_width=300,min_height=300'
+            'photo'             => 'required|image|mimes:jpg|max:2048|dimensions:min_width=300,min_height=300,max_width=500,max_height=500'
         ]);
 
         if ($validator->fails()) {
