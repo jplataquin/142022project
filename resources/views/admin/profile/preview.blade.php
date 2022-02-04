@@ -80,16 +80,52 @@
             }
 
             #crown{
-                width:150px;
+                width:300px;
                 display: block;
                 margin: auto;
                 position: relative;
-                top:25px;
+                top:115px;
             }
         }
 
 
-  
+        #circle{
+            position:relative;
+            top: 68px;
+            z-index: 0;
+        }
+
+        #name-div{
+            position: relative;
+            z-index: 10;
+        }
+
+        #rank{
+            width:60%;
+            margin-left:100px;
+            padding-left: 30px;
+            font-size:17px;
+        }
+
+        #logo{
+            width:150px;
+            height:150px;
+            position:relative;
+            top:-20px;
+        }
+
+        #name{
+            border-bottom-right-radius: 25px;
+            border-top-left-radius: 50px;
+            min-height:50px;
+            padding-top:10px;
+            padding-bottom:10px;
+        }
+
+        #mobile{
+            font-size: 20px;
+            padding:5px !important;
+        }
     </style>
     <div class="container">
         <div class="row justify-content-center">
@@ -104,17 +140,17 @@
                                 <div class="col-md-12">
                                     <div class="text-center">
                                         <img id="crown" src="{{url('/crown.png')}}"/>
-                                        <img  class="rounded-circle border-10px hotpink pic"  src="{{asset('photos/'.$photo)}}" width="100%"/>
+                                        <img  id="circle" class="rounded-circle border-10px hotpink"  src="{{asset('photos/'.$photo)}}" width="400px"/>
                                     </div>
                                     
                                     <div class="">
-                                        <div class="name-div">
-                                            <img class="float-left rounded-circle border-5px hotpink"  width="100px" height="100px"  src="{{asset('img/logo.png')}}" width="100%"/>
-                                            <div class="nicepink-bg white name usnr">{{$prefix}} {{$firstname}} {{$middlename}} {{$lastname}} {{$suffix}}</div>
+                                        <div id="name-div" class="name-div">
+                                            <img id="logo" class="float-left rounded-circle border-5px hotpink"  src="{{asset('img/logo.png')}}"/>
+                                            <div id="name" class="nicepink-bg white usnr">{{$prefix}} {{$firstname}} {{$middlename}} {{$lastname}} {{$suffix}}</div>
                                         </div>
                                     </div>
                                 
-                                    <div class="{{$rank}}-bg white rounded-right rank gotham">{{config('app.rank')[$rank]}}</div>
+                                    <div id="rank" class="{{$rank}}-bg white rounded-right gotham text-center">{{config('app.rank')[$rank]}}</div>
                                 </div>
                             </div>
                             <br>
@@ -124,15 +160,15 @@
                             <div class="hotpink-bg white label-icon">
                                         <i class="bi bi-geo-alt-fill"></i>
                                 </div>
-                                <div class="field">
-                                {{join(', ',[$region,$province,$city_municipality,$barangay])}}
+                                <div class="field text-center">
+                                {{join(', ',[$province,$city_municipality])}}
                                 </div>
                             </div>
                             <div class="col-lg-6 field-row">
                             <div class="hotpink-bg white label-icon">
                                         <i class="bi bi-facebook"></i>
                                 </div>
-                                <div class="field hotpink">
+                                <div class="field hotpink text-center">
                                    {{$links}}
                                 </div>
                             </div>
@@ -140,7 +176,7 @@
                             <div class="hotpink-bg white label-icon">
                                         <i class="bi bi-telephone-fill"></i>
                                 </div>
-                                <div class="field">
+                                <div id="mobile" class="field text-center">
                                     {{$mobile}}
                                 </div>
                             </div>
@@ -148,7 +184,7 @@
                             <div class="hotpink-bg white label-icon">
                                         <i class="bi bi-person-fill"></i>
                                 </div>
-                                <div class="field">
+                                <div class="field text-center">
                                     {{str_pad($id,4,0,STR_PAD_LEFT)}}
                                 </div>
                             </div>
@@ -166,14 +202,19 @@
 
    
     <script>
-        
+    
     html2canvas(document.querySelector(".card")).then(canvas => {
-      
-        let iframe = "<iframe style='border:0px' width='100%' height='100%' src='" + canvas.toDataURL() + "'></iframe>"
+        
+        document.write('<img src="'+canvas.toDataURL('image/jpeg', 1.0)+'" width="700px"/>');
+        //document.write('<img src="'+canvas.toDataURL('image/jpeg', 1.0)+'" width="700px/>');
+        /** 
+        let iframe = "<iframe style='border:0px' width='100%' height='100%' src='" + canvas.toDataURL('image/jpeg', 1.0) + "'></iframe>"
         //var x = window.open();
         //x.document.open();
         document.write(iframe);
         //x.document.close();
+
+        **/
        
     });
 

@@ -197,19 +197,38 @@ class ProfileController extends Controller
         }
 
 
-        $validated = $validator = Validator::make($request->all(),[
-            'rank'              => ['required',Rule::in(array_keys(config('app.rank'))),'max:255'],
-            'region'            => 'required|max:255',
-            'province'          => 'max:255',
-            'city_municipality' => 'max:255',
-            'barangay'          => 'max:255',
-            'firstname'         => 'required|max:255',
-            'lastname'          => 'required|max:255',
-            'email'             => 'required|email|max:255',
-            'mobile'            => 'required|max:255',
-            'links'             => 'max:255',
-            'photo'             => 'required|image|mimes:jpg|max:2048|dimensions:min_width=300,min_height=300,max_width=500,max_height=500'
-        ]);
+        if($request->file('photo')){
+           
+            $validated = $validator = Validator::make($request->all(),[
+                'rank'              => ['required',Rule::in(array_keys(config('app.rank'))),'max:255'],
+                'region'            => 'required|max:255',
+                'province'          => 'max:255',
+                'city_municipality' => 'max:255',
+                'barangay'          => 'max:255',
+                'firstname'         => 'required|max:255',
+                'lastname'          => 'required|max:255',
+                'email'             => 'required|email|max:255',
+                'mobile'            => 'required|max:255',
+                'links'             => 'max:255',
+                'photo'             => 'image|mimes:jpg|max:2048|dimensions:min_width=300,min_height=300,max_width=500,max_height=500'
+            ]);
+        
+        }else{
+
+            $validated = $validator = Validator::make($request->all(),[
+                'rank'              => ['required',Rule::in(array_keys(config('app.rank'))),'max:255'],
+                'region'            => 'required|max:255',
+                'province'          => 'max:255',
+                'city_municipality' => 'max:255',
+                'barangay'          => 'max:255',
+                'firstname'         => 'required|max:255',
+                'lastname'          => 'required|max:255',
+                'email'             => 'required|email|max:255',
+                'mobile'            => 'required|max:255',
+                'links'             => 'max:255',
+            ]);
+        }
+      
 
         if ($validator->fails()) {
             return response()->json([
@@ -219,21 +238,8 @@ class ProfileController extends Controller
             ]);
         }
 
-        try{
-            
-            $path = $request->file('photo')->store('photos');
 
-        }catch(Exception $e){
-
-            return  response()->json([
-                'status'    => 0,
-                'data'      => [],
-                'message'   => 'Unable to upload file'
-            ]);
-        }
         
-        $photo = str_replace('photos/','',$path);
-
         $profile->rank              = $request->input('rank');
         $profile->region            = $request->input('region');
         $profile->province          = $request->input('province');
@@ -247,11 +253,31 @@ class ProfileController extends Controller
         $profile->email             = $request->input('email') ?? '';
         $profile->mobile            = $request->input('mobile') ?? '';
         $profile->links             = $request->input('links') ?? '';
-        
-        Storage::disk('local')->delete('photos/'.$profile->photo);
-        
-        $profile->photo         = $photo;
 
+        if($request->file('photo')){
+            
+            try{
+                
+               $path = $request->file('photo')->store('photos');
+
+            }catch(Exception $e){
+
+                return  response()->json([
+                    'status'    => 0,
+                    'data'      => [],
+                    'message'   => 'Unable to upload file'
+                ]);
+            }
+        
+            $photo = str_replace('photos/','',$path);
+
+            Storage::disk('local')->delete('photos/'.$profile->photo);
+
+            
+            $profile->photo  = $photo;
+        }
+
+        
         $test = $profile->save();
         
         if(!$test){
