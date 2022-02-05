@@ -126,18 +126,22 @@
             font-size: 20px;
             padding:5px !important;
         }
+
+        #content-position{
+            margin-top:-140px;
+        }
     </style>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-8" style="padding:0px !important;">
+                <div class="card" style="min-width:728px;max-width:728px;min-height:728px;max-height:728px;width:728px;height:728px">
 
-                    <div class="card-body" style="background-image:url({{asset('img/bg.png')}}); background-size: 100%;">
+                    <div  class="card-body" style="background-image:url({{asset('img/bg.png')}}); background-size: 100%;">
                         
 
                             <div class="row">
 
-                                <div class="col-md-12">
+                                <div class="col-md-12" id="content-position">
                                     <div class="text-center">
                                         <img id="crown" src="{{url('/crown.png')}}"/>
                                         <img  id="circle" class="rounded-circle border-10px hotpink"  src="{{asset('photos/'.$photo)}}" width="400px"/>
@@ -205,7 +209,7 @@
     
     html2canvas(document.querySelector(".card")).then(canvas => {
         
-        document.write('<img src="'+canvas.toDataURL('image/jpeg', 1.0)+'" width="700px"/>');
+         document.write('<img src="'+canvas.toDataURL('image/jpeg', 1.0)+'" width="700px"/>');
         //document.write('<img src="'+canvas.toDataURL('image/jpeg', 1.0)+'" width="700px/>');
         /** 
         let iframe = "<iframe style='border:0px' width='100%' height='100%' src='" + canvas.toDataURL('image/jpeg', 1.0) + "'></iframe>"

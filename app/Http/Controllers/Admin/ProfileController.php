@@ -195,10 +195,13 @@ class ProfileController extends Controller
                 'message'   => 'Record not found'
             ]);
         }
-
-
+        
         if($request->file('photo')){
            
+            $imgData = getimagesize($request->file('photo'));
+
+           // return 'image|mimes:jpg|max:2048|dimensions:min_width='.$imgData[0].',min_height='.$imgData[0].',max_width=500,max_height='.$imgData[0];
+
             $validated = $validator = Validator::make($request->all(),[
                 'rank'              => ['required',Rule::in(array_keys(config('app.rank'))),'max:255'],
                 'region'            => 'required|max:255',
@@ -210,7 +213,7 @@ class ProfileController extends Controller
                 'email'             => 'required|email|max:255',
                 'mobile'            => 'required|max:255',
                 'links'             => 'max:255',
-                'photo'             => 'image|mimes:jpg|max:2048|dimensions:min_width=300,min_height=300,max_width=500,max_height=500'
+                'photo'             => 'image|mimes:jpg|max:2048|dimensions:min_width='.$imgData[0].',min_height='.$imgData[0].',max_width='.$imgData[0].',max_height='.$imgData[0]
             ]);
         
         }else{
@@ -304,6 +307,30 @@ class ProfileController extends Controller
     public function list(){
      
         return view('admin/profile/list');
+    }
+
+    public function POST_remove(Request $request){
+        
+        $id = (int) $request->input('id');
+        $profile = Profile::find($id);
+        
+        if(!$profile){
+            return response()->json([
+                'status'    => 0,
+                'data'      => [],
+                'message'   => 'Record not found'
+            ]);
+        }
+        
+        Storage::disk('local')->delete('photos/'.$profile->photo);
+
+        $profile->forceDelete();
+
+        return response()->json([
+            'status'    => 1,
+            'data'      => [],
+            'message'   => ''
+        ]);
     }
 
     public function POST_list(Request $request){

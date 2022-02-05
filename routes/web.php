@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function(){
 
     Route::get('/profile/list',[App\Http\Controllers\Admin\ProfileController::class, 'list']);
     Route::post('/profile/list',[App\Http\Controllers\Admin\ProfileController::class, 'POST_list']);
+
+    Route::post('/profile/delete',[App\Http\Controllers\Admin\ProfileController::class, 'POST_remove']);
 });
 
 

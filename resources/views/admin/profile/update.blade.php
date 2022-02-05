@@ -160,6 +160,9 @@
                                 </button>
                             </div>
                             <div class="col-sm-6 text-right">
+                                <button id="del" class="btn btn-danger">
+                                    Delete
+                                </button>
                                 <button id="submit" class="btn btn-primary">
                                     Update
                                 </button>
@@ -196,6 +199,7 @@
                         ];
 
                         const submit        = document.querySelector('#submit');
+                        const del           = document.querySelector('#del');
                         const photo         = document.querySelector('#photo');
                         const preview       = document.querySelector('#preview');
                         const cropBtn       = document.querySelector('#crop');
@@ -204,11 +208,45 @@
 
                         let cropper;
 
+                    
                         //hide preview, finalphoto, and cropBtn
                         preview.style.display = 'none';
                         cropBtn.style.display = 'none';
                         
-                  
+                        
+                        del.onclick = (e)=>{
+                            e.preventDefault();
+
+                            if(confirm('Are you sure you want to delete this record?')){
+                                
+                                del.disabled = true;
+
+                                let form = new FormData();
+                           
+                            
+                                form.append('id','{{$id}}');
+                                
+
+                                fetch('/admin/profile/delete',{
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': 
+                                            '{{ csrf_token() }}'
+                                    },
+                                    body: form
+                                }).then(response => response.json())
+                                .then((reply)=>{
+                                
+                                    if(!reply.status){
+
+                                        alert(reply.message);
+                                        return false;
+                                    }
+                                    
+                                    document.location.href = '/admin/profile/list';
+                                });
+                            }
+                        }
                         preview.onload = ()=>{
 
                             finalphoto.src = '';
@@ -281,7 +319,7 @@
 
                         
                         function convertImageToBlob(img){
-
+                          
                             return new Promise((resolve,reject)=>{
 
                                 if(img.src == ''){
@@ -293,6 +331,8 @@
                                 
                                 c.width = img.naturalWidth; 
                                 c.height = img.naturalHeight;
+
+                                console.log(c.width,c.height);
                                 let ctx = c.getContext('2d');
                                 ctx.drawImage(img, 0, 0); 
                                 
