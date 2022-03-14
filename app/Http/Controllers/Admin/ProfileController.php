@@ -184,7 +184,7 @@ class ProfileController extends Controller
         
         $address = '';
 
-        if($profile->rank == 'CEO'){
+        if($profile->rank == 'ceo'){
             $address = 'Philippines';
         }if(in_array($profile->rank,['reg'])){
             $address =  $profile->region;
@@ -223,7 +223,7 @@ class ProfileController extends Controller
         }else if(in_array($profile->rank,['cit','cit2','cit3'])){
             
             $address = $profile->city_municipality;
-            
+
         }else if(in_array($profile->rank,['res','sub'])){
             $address = implode(',',[$profile->brgy,$profile->city_municipality,$profile->province]); 
         }

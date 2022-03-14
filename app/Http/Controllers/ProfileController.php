@@ -68,7 +68,7 @@ class ProfileController extends Controller
 
         $address = '';
 
-        if($profile->rank == 'CEO'){
+        if($profile->rank == 'ceo'){
             $address = 'Philippines';
         }if(in_array($profile->rank,['reg'])){
             $address =  $profile->region;
