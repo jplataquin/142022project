@@ -57,7 +57,7 @@
                             <label for="uid" class="col-md-4 col-form-label text-md-right">UID</label>
 
                             <div class="col-md-6">
-                                <input id="uid" type="text" class="form-control" name="uid" readonly value="{{str_pad($id,4,0,STR_PAD_LEFT)}}"/>
+                                <input id="uid" type="text" class="form-control" name="uid" readonly value="{{$uid}}"/>
                             </div>
                         </div>
 

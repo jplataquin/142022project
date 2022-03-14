@@ -165,7 +165,7 @@
                                         <i class="bi bi-geo-alt-fill"></i>
                                 </div>
                                 <div class="field text-center">
-                                {{join(', ',[$province,$city_municipality])}}
+                                    {{$address}}
                                 </div>
                             </div>
                             <div class="col-lg-6 field-row">
@@ -189,7 +189,7 @@
                                         <i class="bi bi-person-fill"></i>
                                 </div>
                                 <div class="field text-center">
-                                    {{str_pad($id,4,0,STR_PAD_LEFT)}}
+                                    {{$uid}}
                                 </div>
                             </div>
                         </div>

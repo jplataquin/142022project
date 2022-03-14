@@ -60,7 +60,60 @@ class ProfileController extends Controller
 
         $profile->rankOptions = config('app.rank');
         
+        $uid = str_pad(''.$profile->id,4,'0',STR_PAD_LEFT);
         
+        $uid = 'QW-'.config('app.rank_abbrev')[$profile->rank].'-'.$uid;
+        
+        $profile->uid = $uid;
+
+        $address = '';
+
+        if($profile->rank == 'CEO'){
+            $address = 'Philippines';
+        }if(in_array($profile->rank,['reg'])){
+            $address =  $profile->region;
+        }else if(in_array($profile->rank,['pro','pro2','pro3'])){
+            $address = $profile->province;
+        }else if(in_array($profile->rank,['dis','dis2','dis3','dis4','dis5','dis6','dis7','dis8'])){
+
+            switch($profile->rank){
+
+                case 'dis':
+                    $address = '1st District, '.$profile->province;
+                    break;
+                case 'dis2':
+                    $address = '2nd District, '.$profile->province;
+                    break;
+                case 'dis3':
+                    $address = '3rd District, '.$profile->province;
+                    break;
+                case 'dis4':
+                    $address = '4th District, '.$profile->province;
+                    break;
+                case 'dis5':
+                    $address = '5th District, '.$profile->province;
+                    break;
+                case 'dis6':
+                    $address = '6th District, '.$profile->province;
+                    break;
+                case 'dis7':
+                    $address = '7th District, '.$profile->province;
+                    break;
+                case 'dis8':
+                    $address = 'th District, '.$profile->province;
+                    break;
+            }
+            
+        }else if(in_array($profile->rank,['cit','cit2','cit3'])){
+            
+            $address = $profile->city_municipality;
+            
+        }else if(in_array($profile->rank,['res','sub'])){
+            $address = implode(',',[$profile->brgy,$profile->city_municipality,$profile->province]); 
+        }
+
+        $profile->address = $address;
+
         return view('public/profile/display',$profile);
     }
 

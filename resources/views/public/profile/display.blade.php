@@ -87,7 +87,7 @@
                                     <i class="bi bi-geo-alt-fill"></i>
                             </div>
                             <div class="field">
-                               <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{urlencode('Philippines,'.$search)}}">{{join(', ',[$region,$province,$city_municipality,$barangay])}}</a>
+                               <a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{urlencode('Philippines,'.$search)}}">{{$address}}</a>
                             </div>
                         </div>
                         <div class="col-lg-6 field-row">
@@ -111,7 +111,7 @@
                                     <i class="bi bi-person-fill"></i>
                             </div>
                             <div class="field">
-                                {{str_pad($id,4,0,STR_PAD_LEFT)}}
+                                {{$uid}}
                             </div>
                         </div>
                       </div>
