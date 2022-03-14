@@ -109,7 +109,9 @@ class ProfileController extends Controller
             $address = $profile->city_municipality;
             
         }else if(in_array($profile->rank,['res','sub'])){
-            $address = implode(',',[$profile->brgy,$profile->city_municipality,$profile->province]); 
+
+            //Remove empty values and implode
+            $address = implode(',',array_values(array_filter([$profile->brgy,$profile->city_municipality,$profile->province]))); 
         }
 
         $profile->address = $address;
